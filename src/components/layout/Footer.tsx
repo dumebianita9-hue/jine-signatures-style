@@ -31,7 +31,7 @@ export function Footer() {
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <Link to="/" className="inline-block">
-              <img src={logo} alt="Jine Signatures" className="h-14 w-auto brightness-0 invert" />
+              <img src={logo} alt="Jine Signatures" className="h-14 w-auto" />
             </Link>
             <p className="mt-6 text-primary-foreground/70 font-body text-sm leading-relaxed">
               Crafting timeless elegance through exceptional tailoring and premium fabrics. 
