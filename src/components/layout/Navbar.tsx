@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { ShoppingBag, User, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/logo-transparent.png";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -43,9 +44,9 @@ export function Navbar() {
           {/* Logo */}
           <Link
             to="/"
-            className="font-display text-2xl md:text-3xl tracking-wide text-foreground hover:text-accent transition-colors duration-300"
+            className="hover:opacity-80 transition-opacity duration-300"
           >
-            Jine Signatures
+            <img src={logo} alt="Jine Signatures" className="h-12 md:h-16 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}

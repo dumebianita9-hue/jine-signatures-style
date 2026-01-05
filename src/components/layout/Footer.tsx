@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Instagram, Facebook, Twitter, Mail, MapPin, Phone } from "lucide-react";
+import logo from "@/assets/logo-transparent.png";
 
 const quickLinks = [
   { name: "Home", path: "/" },
@@ -29,8 +30,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-1">
-            <Link to="/" className="font-display text-2xl tracking-wide text-primary-foreground">
-              Jine Signatures
+            <Link to="/" className="inline-block">
+              <img src={logo} alt="Jine Signatures" className="h-14 w-auto brightness-0 invert" />
             </Link>
             <p className="mt-6 text-primary-foreground/70 font-body text-sm leading-relaxed">
               Crafting timeless elegance through exceptional tailoring and premium fabrics. 
