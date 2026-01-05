@@ -3,26 +3,7 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Filter, X } from "lucide-react";
-import ankaraBlazerMen from "@/assets/products/ankara-blazer-men.jpg";
-import ankaraDressWomen from "@/assets/products/ankara-dress-women.jpg";
-import ankaraSenator from "@/assets/products/ankara-senator.jpg";
-import ankaraPeplumSet from "@/assets/products/ankara-peplum-set.jpg";
-import ankaraAgbada from "@/assets/products/ankara-agbada.jpg";
-import ankaraJumpsuit from "@/assets/products/ankara-jumpsuit.jpg";
-
-const products = [
-  { id: "1", name: "Royal Ankara Blazer", price: 899, category: "Men's Ankara", image: ankaraBlazerMen, sizes: ["S", "M", "L", "XL"] },
-  { id: "2", name: "Amara Maxi Gown", price: 1299, category: "Women's Ankara", image: ankaraDressWomen, sizes: ["XS", "S", "M", "L"] },
-  { id: "3", name: "Emerald Senator Set", price: 1199, category: "Men's Traditional", image: ankaraSenator, sizes: ["S", "M", "L", "XL", "XXL"] },
-  { id: "4", name: "Adeola Peplum Set", price: 749, category: "Women's Ankara", image: ankaraPeplumSet, sizes: ["XS", "S", "M", "L"] },
-  { id: "5", name: "Royal Blue Agbada", price: 1599, category: "Men's Traditional", image: ankaraAgbada, sizes: ["S", "M", "L"] },
-  { id: "6", name: "Teal Ankara Jumpsuit", price: 649, category: "Women's Ankara", image: ankaraJumpsuit, sizes: ["XS", "S", "M", "L"] },
-  { id: "7", name: "Kente Fusion Blazer", price: 999, category: "Men's Ankara", image: ankaraBlazerMen, sizes: ["S", "M", "L", "XL"] },
-  { id: "8", name: "Ankara Ball Gown", price: 1499, category: "Women's Ankara", image: ankaraDressWomen, sizes: ["XS", "S", "M"] },
-];
-
-const categories = ["All", "Men's Ankara", "Women's Ankara", "Men's Traditional"];
-const sortOptions = ["Featured", "Price: Low to High", "Price: High to Low", "Newest"];
+import { products, categories, sortOptions } from "@/data/products";
 
 const Collections = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -52,7 +33,7 @@ const Collections = () => {
             Ankara Collections
           </h1>
           <p className="font-body text-muted-foreground max-w-xl mx-auto">
-            Discover our stunning collection of authentic African Ankara designs, 
+            Discover our stunning collection of {products.length}+ authentic African Ankara designs, 
             crafted with premium wax print fabrics for the modern fashion enthusiast.
           </p>
         </div>
@@ -160,7 +141,7 @@ const Collections = () => {
                 to={`/product/${product.id}`}
                 className="product-card group"
                 style={{
-                  animationDelay: `${index * 0.05}s`,
+                  animationDelay: `${index * 0.02}s`,
                 }}
               >
                 {/* Image Container */}
