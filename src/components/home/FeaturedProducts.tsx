@@ -1,60 +1,60 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import suitCharcoal from "@/assets/products/suit-charcoal.jpg";
-import blazerCream from "@/assets/products/blazer-cream.jpg";
-import suitNavy from "@/assets/products/suit-navy.jpg";
-import dressBlack from "@/assets/products/dress-black.jpg";
-import coatCamel from "@/assets/products/coat-camel.jpg";
-import accessoriesSet from "@/assets/products/accessories-set.jpg";
+import ankaraBlazerMen from "@/assets/products/ankara-blazer-men.jpg";
+import ankaraDressWomen from "@/assets/products/ankara-dress-women.jpg";
+import ankaraSenator from "@/assets/products/ankara-senator.jpg";
+import ankaraPeplumSet from "@/assets/products/ankara-peplum-set.jpg";
+import ankaraAgbada from "@/assets/products/ankara-agbada.jpg";
+import ankaraJumpsuit from "@/assets/products/ankara-jumpsuit.jpg";
 
 const featuredProducts = [
   {
     id: "1",
-    name: "Charcoal Signature Suit",
-    price: 1299,
-    category: "Men's Suits",
-    image: suitCharcoal,
+    name: "Royal Ankara Blazer",
+    price: 899,
+    category: "Men's Ankara",
+    image: ankaraBlazerMen,
     sizes: ["S", "M", "L", "XL"],
   },
   {
     id: "2",
-    name: "Ivory Elegance Blazer",
-    price: 849,
-    category: "Women's Couture",
-    image: blazerCream,
+    name: "Amara Maxi Gown",
+    price: 1299,
+    category: "Women's Ankara",
+    image: ankaraDressWomen,
     sizes: ["XS", "S", "M", "L"],
   },
   {
     id: "3",
-    name: "Midnight Navy Three-Piece",
-    price: 1599,
-    category: "Men's Suits",
-    image: suitNavy,
+    name: "Emerald Senator Set",
+    price: 1199,
+    category: "Men's Traditional",
+    image: ankaraSenator,
     sizes: ["S", "M", "L", "XL", "XXL"],
   },
   {
     id: "4",
-    name: "Noir Evening Gown",
-    price: 1899,
-    category: "Women's Couture",
-    image: dressBlack,
+    name: "Adeola Peplum Set",
+    price: 749,
+    category: "Women's Ankara",
+    image: ankaraPeplumSet,
     sizes: ["XS", "S", "M", "L"],
   },
   {
     id: "5",
-    name: "Camel Cashmere Coat",
-    price: 1199,
-    category: "Outerwear",
-    image: coatCamel,
+    name: "Royal Blue Agbada",
+    price: 1599,
+    category: "Men's Traditional",
+    image: ankaraAgbada,
     sizes: ["S", "M", "L"],
   },
   {
     id: "6",
-    name: "Executive Accessories Set",
-    price: 349,
-    category: "Accessories",
-    image: accessoriesSet,
-    sizes: ["One Size"],
+    name: "Teal Ankara Jumpsuit",
+    price: 649,
+    category: "Women's Ankara",
+    image: ankaraJumpsuit,
+    sizes: ["XS", "S", "M", "L"],
   },
 ];
 
@@ -68,7 +68,7 @@ export function FeaturedProducts() {
             Curated Selection
           </p>
           <h2 className="font-display text-4xl md:text-5xl text-foreground">
-            Featured Collection
+            Featured Ankara Collection
           </h2>
         </div>
 
