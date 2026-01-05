@@ -3,25 +3,25 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Filter, X } from "lucide-react";
-import suitCharcoal from "@/assets/products/suit-charcoal.jpg";
-import blazerCream from "@/assets/products/blazer-cream.jpg";
-import suitNavy from "@/assets/products/suit-navy.jpg";
-import dressBlack from "@/assets/products/dress-black.jpg";
-import coatCamel from "@/assets/products/coat-camel.jpg";
-import accessoriesSet from "@/assets/products/accessories-set.jpg";
+import ankaraBlazerMen from "@/assets/products/ankara-blazer-men.jpg";
+import ankaraDressWomen from "@/assets/products/ankara-dress-women.jpg";
+import ankaraSenator from "@/assets/products/ankara-senator.jpg";
+import ankaraPeplumSet from "@/assets/products/ankara-peplum-set.jpg";
+import ankaraAgbada from "@/assets/products/ankara-agbada.jpg";
+import ankaraJumpsuit from "@/assets/products/ankara-jumpsuit.jpg";
 
 const products = [
-  { id: "1", name: "Charcoal Signature Suit", price: 1299, category: "Men's Suits", image: suitCharcoal, sizes: ["S", "M", "L", "XL"] },
-  { id: "2", name: "Ivory Elegance Blazer", price: 849, category: "Women's Couture", image: blazerCream, sizes: ["XS", "S", "M", "L"] },
-  { id: "3", name: "Midnight Navy Three-Piece", price: 1599, category: "Men's Suits", image: suitNavy, sizes: ["S", "M", "L", "XL", "XXL"] },
-  { id: "4", name: "Noir Evening Gown", price: 1899, category: "Women's Couture", image: dressBlack, sizes: ["XS", "S", "M", "L"] },
-  { id: "5", name: "Camel Cashmere Coat", price: 1199, category: "Outerwear", image: coatCamel, sizes: ["S", "M", "L"] },
-  { id: "6", name: "Executive Accessories Set", price: 349, category: "Accessories", image: accessoriesSet, sizes: ["One Size"] },
-  { id: "7", name: "Classic Black Tuxedo", price: 1799, category: "Men's Suits", image: suitCharcoal, sizes: ["S", "M", "L", "XL"] },
-  { id: "8", name: "Pearl White Evening Dress", price: 1499, category: "Women's Couture", image: blazerCream, sizes: ["XS", "S", "M"] },
+  { id: "1", name: "Royal Ankara Blazer", price: 899, category: "Men's Ankara", image: ankaraBlazerMen, sizes: ["S", "M", "L", "XL"] },
+  { id: "2", name: "Amara Maxi Gown", price: 1299, category: "Women's Ankara", image: ankaraDressWomen, sizes: ["XS", "S", "M", "L"] },
+  { id: "3", name: "Emerald Senator Set", price: 1199, category: "Men's Traditional", image: ankaraSenator, sizes: ["S", "M", "L", "XL", "XXL"] },
+  { id: "4", name: "Adeola Peplum Set", price: 749, category: "Women's Ankara", image: ankaraPeplumSet, sizes: ["XS", "S", "M", "L"] },
+  { id: "5", name: "Royal Blue Agbada", price: 1599, category: "Men's Traditional", image: ankaraAgbada, sizes: ["S", "M", "L"] },
+  { id: "6", name: "Teal Ankara Jumpsuit", price: 649, category: "Women's Ankara", image: ankaraJumpsuit, sizes: ["XS", "S", "M", "L"] },
+  { id: "7", name: "Kente Fusion Blazer", price: 999, category: "Men's Ankara", image: ankaraBlazerMen, sizes: ["S", "M", "L", "XL"] },
+  { id: "8", name: "Ankara Ball Gown", price: 1499, category: "Women's Ankara", image: ankaraDressWomen, sizes: ["XS", "S", "M"] },
 ];
 
-const categories = ["All", "Men's Suits", "Women's Couture", "Outerwear", "Accessories"];
+const categories = ["All", "Men's Ankara", "Women's Ankara", "Men's Traditional"];
 const sortOptions = ["Featured", "Price: Low to High", "Price: High to Low", "Newest"];
 
 const Collections = () => {
@@ -49,11 +49,11 @@ const Collections = () => {
             Explore
           </p>
           <h1 className="font-display text-5xl md:text-6xl text-foreground mb-6">
-            Our Collections
+            Ankara Collections
           </h1>
           <p className="font-body text-muted-foreground max-w-xl mx-auto">
-            Discover our carefully curated selection of premium tailored pieces, 
-            designed for the discerning individual.
+            Discover our stunning collection of authentic African Ankara designs, 
+            crafted with premium wax print fabrics for the modern fashion enthusiast.
           </p>
         </div>
       </section>
