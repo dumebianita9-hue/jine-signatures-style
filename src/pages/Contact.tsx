@@ -18,7 +18,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email Us",
-    details: ["hello@jinesignatures.com", "support@jinesignatures.com" "jinesignatures@gmail.com"],
+    details: ["jinesignatures@gmail.com"],
   },
   {
     icon: Clock,
