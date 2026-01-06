@@ -8,22 +8,22 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Visit Us",
-    details: ["123 Fashion Avenue, Suite 500", "New York, NY 10001"],
+    details: ["281B Purple Street Bungalow Estate, Isolo, Lagos"],
   },
   {
     icon: Phone,
     title: "Call Us",
-    details: ["+1 (234) 567-890", "+1 (234) 567-891"],
+    details: ["+2348098091362"],
   },
   {
     icon: Mail,
     title: "Email Us",
-    details: ["hello@jinesignatures.com", "support@jinesignatures.com"],
+    details: ["hello@jinesignatures.com", "support@jinesignatures.com" "jinesignatures@gmail.com"],
   },
   {
     icon: Clock,
     title: "Hours",
-    details: ["Mon - Fri: 10AM - 7PM", "Sat: 11AM - 6PM"],
+    details: ["Mon - Fri: 8AM - 7PM", "Sat: 9AM - 6PM"],
   },
 ];
 
