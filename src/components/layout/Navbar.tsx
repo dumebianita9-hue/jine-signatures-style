@@ -1,8 +1,16 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { ShoppingBag, User, Menu, X } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ShoppingBag, User, Menu, X, LogOut, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import logo from "@/assets/logo-transparent.png";
 
 const navLinks = [
@@ -16,6 +24,8 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, isAdmin, signOut } = useAuth();
   const cartItemCount = 3; // This would come from cart state
 
   useEffect(() => {
@@ -29,6 +39,11 @@ export function Navbar() {
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
+  };
 
   return (
     <header
@@ -68,12 +83,42 @@ export function Navbar() {
 
           {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-6">
-            <Link to="/login">
-              <Button variant="ghost" size="sm" className="font-body text-sm tracking-wider uppercase">
-                <User className="w-4 h-4 mr-2" />
-                Login
-              </Button>
-            </Link>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="font-body text-sm tracking-wider uppercase gap-2">
+                    <User className="w-4 h-4" />
+                    Account
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <div className="px-2 py-1.5">
+                    <p className="text-sm font-medium truncate">{user.email}</p>
+                  </div>
+                  <DropdownMenuSeparator />
+                  {isAdmin && (
+                    <>
+                      <DropdownMenuItem onClick={() => navigate("/admin")}>
+                        <Settings className="w-4 h-4 mr-2" />
+                        Admin Dashboard
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                    </>
+                  )}
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link to="/auth">
+                <Button variant="ghost" size="sm" className="font-body text-sm tracking-wider uppercase">
+                  <User className="w-4 h-4 mr-2" />
+                  Login
+                </Button>
+              </Link>
+            )}
             <Link to="/cart" className="relative group">
               <Button variant="ghost" size="icon" className="relative">
                 <ShoppingBag className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
@@ -122,13 +167,29 @@ export function Navbar() {
                   </Link>
                 </li>
               ))}
+              {isAdmin && (
+                <li>
+                  <Link
+                    to="/admin"
+                    className="block font-body text-lg tracking-wider uppercase text-foreground/80 hover:text-foreground transition-colors duration-300"
+                  >
+                    Admin
+                  </Link>
+                </li>
+              )}
             </ul>
             <div className="flex items-center gap-4 mt-8 pt-8 border-t border-border">
-              <Link to="/login" className="flex-1">
-                <Button variant="luxury-outline" className="w-full">
-                  Login
+              {user ? (
+                <Button variant="luxury-outline" className="flex-1" onClick={handleSignOut}>
+                  Sign Out
                 </Button>
-              </Link>
+              ) : (
+                <Link to="/auth" className="flex-1">
+                  <Button variant="luxury-outline" className="w-full">
+                    Login
+                  </Button>
+                </Link>
+              )}
               <Link to="/cart" className="relative">
                 <Button variant="luxury" size="icon" className="relative">
                   <ShoppingBag className="w-5 h-5" />
