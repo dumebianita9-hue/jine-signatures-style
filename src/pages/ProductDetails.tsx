@@ -41,7 +41,7 @@ const ProductDetails = () => {
         .from('products')
         .select('*')
         .eq('id', id)
-        .single();
+        .maybeSingle();
       
       if (error) {
         console.error('Error fetching product:', error);
