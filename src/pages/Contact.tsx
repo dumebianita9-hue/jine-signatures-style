@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+
+const WHATSAPP_NUMBER = "2349027856578";
 
 const contactInfo = [
   {
@@ -35,22 +37,42 @@ const Contact = () => {
     subject: "",
     message: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
     
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Validate inputs
+    if (!formData.name.trim() || !formData.email.trim() || !formData.subject || !formData.message.trim()) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Build WhatsApp message
+    const message = `*New Contact Form Message*
+
+*Name:* ${formData.name.trim()}
+*Email:* ${formData.email.trim()}
+*Phone:* ${formData.phone.trim() || "Not provided"}
+*Subject:* ${formData.subject}
+
+*Message:*
+${formData.message.trim()}`;
+
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    
+    window.open(whatsappUrl, '_blank');
     
     toast({
-      title: "Message Sent",
-      description: "Thank you for reaching out. We'll get back to you within 24 hours.",
+      title: "Redirecting to WhatsApp",
+      description: "Your message is ready to send via WhatsApp.",
     });
     
     setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
-    setIsLoading(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -169,10 +191,10 @@ const Contact = () => {
                   type="submit"
                   variant="luxury"
                   size="xl"
-                  disabled={isLoading}
-                  className="w-full sm:w-auto"
+                  className="w-full sm:w-auto gap-2"
                 >
-                  {isLoading ? "Sending..." : "Send Message"}
+                  <MessageCircle className="w-5 h-5" />
+                  Send via WhatsApp
                 </Button>
               </form>
             </div>
