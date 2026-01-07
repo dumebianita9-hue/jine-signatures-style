@@ -13,7 +13,7 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Call Us",
-    details: ["+2348098091362"],
+    details: ["+234 902 785 6578", "+234 809 809 1362"],
   },
   {
     icon: Mail,

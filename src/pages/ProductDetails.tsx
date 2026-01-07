@@ -7,7 +7,8 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
-const WHATSAPP_LINK = "https://wa.me/message/Q27OMVLB3HS6C1";
+const WHATSAPP_NUMBER = "2349027856578";
+const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
 
 const formatPrice = (price: number) => {
   return `₦${price.toLocaleString()}`;
