@@ -93,26 +93,26 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-accent mt-1 flex-shrink-0" />
                 <span className="text-primary-foreground/70 font-body text-sm">
-                  123 Fashion Avenue, Suite 500<br />
-                  New York, NY 10001
+                  218A Purple Street, Jakande Estate, by Laurel School, Oke-Afa, Isolo,<br />
+                  Lagos State.
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-accent flex-shrink-0" />
                 <a
-                  href="tel:+1234567890"
+                  href="tel:+2349027856578"
                   className="text-primary-foreground/70 font-body text-sm hover:text-accent transition-colors duration-300"
                 >
-                  +1 (234) 567-890
+                  +234 09027856578
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-accent flex-shrink-0" />
                 <a
-                  href="mailto:hello@jinesignatures.com"
+                  href="mailto:jinesignatures@gmail.com.com"
                   className="text-primary-foreground/70 font-body text-sm hover:text-accent transition-colors duration-300"
                 >
-                  hello@jinesignatures.com
+                  jinesignatures@gmail.com
                 </a>
               </li>
             </ul>
