@@ -1,15 +1,52 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Filter, X } from "lucide-react";
-import { products, categories, sortOptions } from "@/data/products";
+import { supabase } from "@/integrations/supabase/client";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
+
+const categories = ["All", "Men's Ankara", "Women's Ankara", "Men's Traditional", "Women's Traditional"];
+const sortOptions = ["Featured", "Price: Low to High", "Price: High to Low"];
+
+const formatPrice = (price: number) => {
+  return `₦${price.toLocaleString()}`;
+};
+
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  category: string;
+  image_url: string | null;
+  is_featured: boolean | null;
+}
 
 const Collections = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedSort, setSelectedSort] = useState("Featured");
   const [showFilters, setShowFilters] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data, error } = await supabase
+        .from('products')
+        .select('id, name, price, category, image_url, is_featured')
+        .order('created_at', { ascending: false });
+      
+      if (error) {
+        console.error('Error fetching products:', error);
+      } else {
+        setProducts(data || []);
+      }
+      setLoading(false);
+    };
+
+    fetchProducts();
+  }, []);
 
   const filteredProducts = products.filter(
     (product) => selectedCategory === "All" || product.category === selectedCategory
@@ -18,8 +55,22 @@ const Collections = () => {
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (selectedSort === "Price: Low to High") return a.price - b.price;
     if (selectedSort === "Price: High to Low") return b.price - a.price;
+    if (selectedSort === "Featured") {
+      if (a.is_featured && !b.is_featured) return -1;
+      if (!a.is_featured && b.is_featured) return 1;
+    }
     return 0;
   });
+
+  if (loading) {
+    return (
+      <Layout>
+        <section className="pt-32 pb-20 bg-background min-h-screen flex items-center justify-center">
+          <LoadingSpinner />
+        </section>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
@@ -147,7 +198,7 @@ const Collections = () => {
                 {/* Image Container */}
                 <div className="relative aspect-[3/4] overflow-hidden bg-muted">
                   <img
-                    src={product.image}
+                    src={product.image_url || '/placeholder.svg'}
                     alt={product.name}
                     className="product-image w-full h-full object-cover"
                   />
@@ -167,7 +218,7 @@ const Collections = () => {
                     {product.name}
                   </h3>
                   <p className="font-body text-base font-semibold text-foreground">
-                    ${product.price.toLocaleString()}
+                    {formatPrice(product.price)}
                   </p>
                 </div>
               </Link>
