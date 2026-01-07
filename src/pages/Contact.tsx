@@ -10,7 +10,7 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Visit Us",
-    details: ["281B Purple Street Bungalow Estate, Isolo, Lagos"],
+    details: ["218A Purple Street, Jakande Estate, by Laurel School, Oke-Afa, Isolo, Lagos"],
   },
   {
     icon: Phone,
