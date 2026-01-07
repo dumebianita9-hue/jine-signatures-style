@@ -1,81 +1,113 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { Heart, Minus, Plus, Truck, Shield, RotateCcw } from "lucide-react";
+import { Heart, Minus, Plus, Truck, Shield, RotateCcw, MessageCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import suitCharcoal from "@/assets/products/suit-charcoal.jpg";
-import blazerCream from "@/assets/products/blazer-cream.jpg";
-import suitNavy from "@/assets/products/suit-navy.jpg";
-import dressBlack from "@/assets/products/dress-black.jpg";
+import { supabase } from "@/integrations/supabase/client";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
-const productsData: Record<string, {
+const WHATSAPP_LINK = "https://wa.me/message/Q27OMVLB3HS6C1";
+
+const formatPrice = (price: number) => {
+  return `₦${price.toLocaleString()}`;
+};
+
+interface Product {
   id: string;
   name: string;
   price: number;
   category: string;
-  description: string;
-  images: string[];
-  sizes: string[];
-  details: string[];
-}> = {
-  "1": {
-    id: "1",
-    name: "Charcoal Signature Suit",
-    price: 1299,
-    category: "Men's Suits",
-    description: "Impeccably tailored from the finest Italian wool, this signature suit embodies modern elegance. Features a slim-fit silhouette with notched lapels and a two-button closure.",
-    images: [suitCharcoal, suitNavy, blazerCream],
-    sizes: ["S", "M", "L", "XL"],
-    details: ["100% Italian Wool", "Slim Fit", "Two-Button Closure", "Notched Lapels", "Dry Clean Only"],
-  },
-  "2": {
-    id: "2",
-    name: "Ivory Elegance Blazer",
-    price: 849,
-    category: "Women's Couture",
-    description: "A sophisticated blazer crafted from premium crepe fabric with gold-tone buttons. Perfect for both professional and evening occasions.",
-    images: [blazerCream, dressBlack, suitCharcoal],
-    sizes: ["XS", "S", "M", "L"],
-    details: ["Premium Crepe Fabric", "Gold-Tone Buttons", "Tailored Fit", "Lined Interior", "Dry Clean Only"],
-  },
-};
-
-const defaultProduct = {
-  id: "1",
-  name: "Charcoal Signature Suit",
-  price: 1299,
-  category: "Men's Suits",
-  description: "Impeccably tailored from the finest Italian wool, this signature suit embodies modern elegance.",
-  images: [suitCharcoal, suitNavy, blazerCream],
-  sizes: ["S", "M", "L", "XL"],
-  details: ["100% Italian Wool", "Slim Fit", "Two-Button Closure"],
-};
+  description: string | null;
+  image_url: string | null;
+  sizes: string[] | null;
+}
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const product = productsData[id || "1"] || defaultProduct;
-  
-  const [selectedImage, setSelectedImage] = useState(0);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const { toast } = useToast();
 
-  const handleAddToCart = () => {
+  useEffect(() => {
+    const fetchProduct = async () => {
+      if (!id) return;
+      
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('id', id)
+        .single();
+      
+      if (error) {
+        console.error('Error fetching product:', error);
+        toast({
+          title: "Error",
+          description: "Could not load product details.",
+          variant: "destructive",
+        });
+      } else {
+        setProduct(data);
+      }
+      setLoading(false);
+    };
+
+    fetchProduct();
+  }, [id, toast]);
+
+  const handleWhatsAppOrder = (orderType: 'buy' | 'sew') => {
     if (!selectedSize) {
       toast({
         title: "Please select a size",
-        description: "Choose your preferred size before adding to cart.",
+        description: "Choose your preferred size before ordering.",
         variant: "destructive",
       });
       return;
     }
-    toast({
-      title: "Added to Cart",
-      description: `${product.name} (Size: ${selectedSize}) has been added to your cart.`,
-    });
+
+    if (!product) return;
+
+    const totalPrice = product.price * quantity;
+    const message = `Hello! I would like to ${orderType === 'buy' ? 'BUY' : 'SEW'} the following:\n\n` +
+      `📦 Product: ${product.name}\n` +
+      `📏 Size: ${selectedSize}\n` +
+      `🔢 Quantity: ${quantity}\n` +
+      `💰 Price: ${formatPrice(totalPrice)}\n\n` +
+      `Please confirm availability and provide further details.`;
+
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`${WHATSAPP_LINK}&text=${encodedMessage}`, '_blank');
   };
+
+  if (loading) {
+    return (
+      <Layout>
+        <section className="pt-32 pb-20 bg-background min-h-screen flex items-center justify-center">
+          <LoadingSpinner />
+        </section>
+      </Layout>
+    );
+  }
+
+  if (!product) {
+    return (
+      <Layout>
+        <section className="pt-32 pb-20 bg-background min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="font-display text-3xl text-foreground mb-4">Product Not Found</h1>
+            <Link to="/collections">
+              <Button variant="luxury">Back to Collections</Button>
+            </Link>
+          </div>
+        </section>
+      </Layout>
+    );
+  }
+
+  const sizes = product.sizes || ["S", "M", "L", "XL"];
 
   return (
     <Layout>
@@ -98,31 +130,10 @@ const ProductDetails = () => {
               {/* Main Image */}
               <div className="aspect-[3/4] rounded-lg overflow-hidden bg-muted">
                 <img
-                  src={product.images[selectedImage]}
+                  src={product.image_url || '/placeholder.svg'}
                   alt={product.name}
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
-              </div>
-              
-              {/* Thumbnails */}
-              <div className="flex gap-4">
-                {product.images.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedImage(index)}
-                    className={`w-20 h-24 rounded-lg overflow-hidden transition-all duration-300 ${
-                      selectedImage === index
-                        ? "ring-2 ring-accent"
-                        : "opacity-70 hover:opacity-100"
-                    }`}
-                  >
-                    <img
-                      src={image}
-                      alt={`${product.name} view ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                ))}
               </div>
             </div>
 
@@ -135,10 +146,10 @@ const ProductDetails = () => {
                 {product.name}
               </h1>
               <p className="font-display text-3xl text-accent mb-6">
-                ${product.price.toLocaleString()}
+                {formatPrice(product.price)}
               </p>
               <p className="font-body text-muted-foreground leading-relaxed mb-8">
-                {product.description}
+                {product.description || "A beautifully crafted piece from our exclusive Ankara collection."}
               </p>
 
               {/* Size Selection */}
@@ -147,12 +158,9 @@ const ProductDetails = () => {
                   <h3 className="font-body text-sm tracking-wider uppercase text-foreground">
                     Select Size
                   </h3>
-                  <Link to="/size-guide" className="font-body text-sm text-accent hover:underline">
-                    Size Guide
-                  </Link>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  {product.sizes.map((size) => (
+                  {sizes.map((size) => (
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
@@ -190,15 +198,33 @@ const ProductDetails = () => {
                 </div>
               </div>
 
-              {/* Actions */}
-              <div className="flex gap-4 mb-10">
+              {/* Total Price */}
+              <div className="mb-8 p-4 bg-muted rounded-lg">
+                <div className="flex justify-between items-center">
+                  <span className="font-body text-sm text-muted-foreground">Total Price:</span>
+                  <span className="font-display text-2xl text-foreground">{formatPrice(product.price * quantity)}</span>
+                </div>
+              </div>
+
+              {/* Actions - Buy or Sew */}
+              <div className="flex flex-col sm:flex-row gap-4 mb-10">
                 <Button
                   variant="luxury"
                   size="xl"
-                  className="flex-1"
-                  onClick={handleAddToCart}
+                  className="flex-1 gap-2"
+                  onClick={() => handleWhatsAppOrder('buy')}
                 >
-                  Add to Cart
+                  <MessageCircle className="w-5 h-5" />
+                  Buy Now
+                </Button>
+                <Button
+                  variant="luxury-outline"
+                  size="xl"
+                  className="flex-1 gap-2"
+                  onClick={() => handleWhatsAppOrder('sew')}
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  Request to Sew
                 </Button>
                 <Button
                   variant="outline"
@@ -210,33 +236,28 @@ const ProductDetails = () => {
                 </Button>
               </div>
 
+              {/* WhatsApp Info */}
+              <div className="mb-8 p-4 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-900">
+                <p className="font-body text-sm text-green-800 dark:text-green-200">
+                  <MessageCircle className="w-4 h-4 inline mr-2" />
+                  Orders are processed via WhatsApp for a personalized experience. Click Buy or Sew to get started!
+                </p>
+              </div>
+
               {/* Features */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 border-t border-border">
                 <div className="flex items-center gap-3">
                   <Truck className="w-5 h-5 text-accent" />
-                  <span className="font-body text-sm text-muted-foreground">Free Shipping</span>
+                  <span className="font-body text-sm text-muted-foreground">Nationwide Delivery</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <RotateCcw className="w-5 h-5 text-accent" />
-                  <span className="font-body text-sm text-muted-foreground">30-Day Returns</span>
+                  <span className="font-body text-sm text-muted-foreground">Easy Returns</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Shield className="w-5 h-5 text-accent" />
-                  <span className="font-body text-sm text-muted-foreground">2-Year Warranty</span>
+                  <span className="font-body text-sm text-muted-foreground">Quality Guarantee</span>
                 </div>
-              </div>
-
-              {/* Details */}
-              <div className="mt-10 pt-8 border-t border-border">
-                <h3 className="font-display text-lg text-foreground mb-4">Product Details</h3>
-                <ul className="space-y-2">
-                  {product.details.map((detail, index) => (
-                    <li key={index} className="flex items-center gap-3 font-body text-sm text-muted-foreground">
-                      <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                      {detail}
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
           </div>

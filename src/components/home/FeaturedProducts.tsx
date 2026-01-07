@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { featuredProducts } from "@/data/products";
 
+const formatPrice = (price: number) => {
+  return `₦${price.toLocaleString()}`;
+};
+
 export function FeaturedProducts() {
   return (
     <section className="py-20 lg:py-32 bg-background">
@@ -53,7 +57,7 @@ export function FeaturedProducts() {
                 </h3>
                 <div className="flex items-center justify-between">
                   <p className="font-body text-lg font-semibold text-foreground">
-                    ${product.price.toLocaleString()}
+                    {formatPrice(product.price)}
                   </p>
                   <div className="flex gap-1">
                     {product.sizes.slice(0, 3).map((size) => (
