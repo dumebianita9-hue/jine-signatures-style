@@ -9,7 +9,7 @@ const features = [
   },
   {
     title: "Master Tailors",
-    description: "Over 30 years of combined expertise",
+    description: "Over 6 years of combined expertise",
   },
   {
     title: "Bespoke Service",
