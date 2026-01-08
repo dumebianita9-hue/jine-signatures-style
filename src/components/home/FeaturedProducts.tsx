@@ -1,12 +1,65 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { featuredProducts } from "@/data/products";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
+
+// Import fallback images
+import ankaraBlazerMen from "@/assets/products/ankara-blazer-men.jpg";
+import ankaraDressWomen from "@/assets/products/ankara-dress-women.jpg";
+import ankaraSenator from "@/assets/products/ankara-senator.jpg";
+import ankaraPeplumSet from "@/assets/products/ankara-peplum-set.jpg";
+import ankaraAgbada from "@/assets/products/ankara-agbada.jpg";
+import ankaraJumpsuit from "@/assets/products/ankara-jumpsuit.jpg";
+
+const fallbackImages = [ankaraBlazerMen, ankaraDressWomen, ankaraSenator, ankaraPeplumSet, ankaraAgbada, ankaraJumpsuit];
 
 const formatPrice = (price: number) => {
   return `₦${price.toLocaleString()}`;
 };
 
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  category: string;
+  image_url: string | null;
+  sizes: string[] | null;
+}
+
 export function FeaturedProducts() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFeaturedProducts = async () => {
+      const { data, error } = await supabase
+        .from('products')
+        .select('id, name, price, category, image_url, sizes')
+        .eq('is_featured', true)
+        .limit(6);
+      
+      if (error) {
+        console.error('Error fetching featured products:', error);
+      } else {
+        setProducts(data || []);
+      }
+      setLoading(false);
+    };
+
+    fetchFeaturedProducts();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-20 lg:py-32 bg-background">
+        <div className="container mx-auto px-6 lg:px-12 flex justify-center">
+          <LoadingSpinner />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-20 lg:py-32 bg-background">
       <div className="container mx-auto px-6 lg:px-12">
@@ -22,7 +75,7 @@ export function FeaturedProducts() {
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProducts.map((product, index) => (
+          {products.map((product, index) => (
             <Link
               key={product.id}
               to={`/product/${product.id}`}
@@ -35,7 +88,7 @@ export function FeaturedProducts() {
               {/* Image Container */}
               <div className="relative aspect-[3/4] overflow-hidden bg-muted">
                 <img
-                  src={product.image}
+                  src={product.image_url || fallbackImages[index % fallbackImages.length]}
                   alt={product.name}
                   className="product-image w-full h-full object-cover"
                 />
@@ -60,7 +113,7 @@ export function FeaturedProducts() {
                     {formatPrice(product.price)}
                   </p>
                   <div className="flex gap-1">
-                    {product.sizes.slice(0, 3).map((size) => (
+                    {(product.sizes || ["S", "M", "L", "XL"]).slice(0, 3).map((size) => (
                       <span
                         key={size}
                         className="text-xs text-muted-foreground font-body"
@@ -68,9 +121,9 @@ export function FeaturedProducts() {
                         {size}
                       </span>
                     ))}
-                    {product.sizes.length > 3 && (
+                    {(product.sizes || []).length > 3 && (
                       <span className="text-xs text-muted-foreground font-body">
-                        +{product.sizes.length - 3}
+                        +{(product.sizes || []).length - 3}
                       </span>
                     )}
                   </div>
