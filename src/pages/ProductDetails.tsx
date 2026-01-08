@@ -80,7 +80,7 @@ const ProductDetails = () => {
       `Please confirm availability and provide further details.`;
 
     const encodedMessage = encodeURIComponent(message);
-    window.open(`${WHATSAPP_LINK}&text=${encodedMessage}`, '_blank');
+    window.open(`${WHATSAPP_LINK}?text=${encodedMessage}`, "_blank");
   };
 
   if (loading) {
