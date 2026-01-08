@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { FloatingWhatsApp } from "./FloatingWhatsApp";
+import { JineAIChat } from "@/components/chat/JineAIChat";
 
 interface LayoutProps {
   children: ReactNode;
@@ -14,6 +15,7 @@ export function Layout({ children }: LayoutProps) {
       <main className="flex-1">{children}</main>
       <Footer />
       <FloatingWhatsApp />
+      <JineAIChat />
     </div>
   );
 }
