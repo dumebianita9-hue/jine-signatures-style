@@ -142,6 +142,11 @@ export function Footer() {
               </Link>
             </div>
           </div>
+          <div className="mt-4 text-center">
+            <p className="text-primary-foreground/40 font-body text-xs">
+              Developed by <span className="text-accent hover:text-accent/80 transition-colors">Motech</span>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
