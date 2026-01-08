@@ -36,10 +36,10 @@ const About = () => {
             <h1 className="font-display text-5xl md:text-6xl lg:text-7xl text-foreground mb-6">
               Crafting Elegance
               <br />
-              <span className="italic">Since 1985</span>
+              <span className="italic">Since 2020</span>
             </h1>
             <p className="font-body text-lg text-muted-foreground leading-relaxed">
-              For nearly four decades, Jine Signatures has been the destination for discerning individuals 
+              Jine Signatures has been the destination for discerning individuals 
               seeking exceptional tailoring and timeless style. Our journey began with a simple belief: 
               that every person deserves clothing that fits perfectly and makes them feel extraordinary.
             </p>
@@ -67,13 +67,13 @@ const About = () => {
                 The Beginning
               </p>
               <h2 className="font-display text-4xl md:text-5xl text-foreground mb-6">
-                A Legacy of
+               A Heritage of
                 <br />
-                <span className="text-accent italic">Fine Tailoring</span>
+                <span className="text-accent italic">Vibrant Stitching</span>
               </h2>
               <div className="space-y-6 font-body text-muted-foreground leading-relaxed">
                 <p>
-                  Founded in 1985 by master tailor Jean Signatures in the heart of the fashion district, 
+                  Founded in 2020 by master tailor Jine Signatures in the heart of the fashion district, 
                   our atelier was born from a passion for impeccable craftsmanship and an unwavering 
                   commitment to quality.
                 </p>
