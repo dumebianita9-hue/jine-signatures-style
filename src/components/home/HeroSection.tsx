@@ -28,9 +28,9 @@ export function HeroSection() {
             className="font-display text-5xl md:text-6xl lg:text-7xl text-primary-foreground leading-tight mb-8 animate-fade-up"
             style={{ animationDelay: "0.4s", animationFillMode: "both" }}
           >
-            Elegance
+            Jine
             <br />
-            <span className="italic">Redefined</span>
+            <span className="italic">Signatures</span>
           </h1>
           <p
             className="font-body text-lg text-primary-foreground/80 mb-10 max-w-lg animate-fade-up"
