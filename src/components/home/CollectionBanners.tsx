@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import suitNavy from "@/assets/products/suit-navy.jpg";
+import kiddiesAnkara from "@/assets/products/kiddies-ankara.jpg";
 import blazerCream from "@/assets/products/blazer-cream.jpg";
 
 const collections = [
@@ -9,7 +9,7 @@ const collections = [
     title: "Kiddies Collection",
     subtitle: "Little Fashionistas",
     description: "Adorable styles for your little ones with quality and comfort.",
-    image: suitNavy,
+    image: kiddiesAnkara,
     link: "/collections?category=kiddies",
   },
   {
