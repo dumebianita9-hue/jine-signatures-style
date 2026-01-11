@@ -5,12 +5,12 @@ import blazerCream from "@/assets/products/blazer-cream.jpg";
 
 const collections = [
   {
-    id: "mens",
-    title: "Men's Collection",
-    subtitle: "Tailored Excellence",
-    description: "Discover the pinnacle of men's tailoring with our signature suits and formal wear.",
+    id: "kiddies",
+    title: "Kiddies Collection",
+    subtitle: "Little Fashionistas",
+    description: "Adorable styles for your little ones with quality and comfort.",
     image: suitNavy,
-    link: "/collections?category=mens",
+    link: "/collections?category=kiddies",
   },
   {
     id: "womens",
