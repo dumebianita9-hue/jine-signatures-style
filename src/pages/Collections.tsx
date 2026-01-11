@@ -6,7 +6,7 @@ import { ChevronDown, Filter, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
-const categories = ["All", "Men's Ankara", "Women's Ankara", "Men's Traditional", "Women's Traditional"];
+const categories = ["All", "Women's Ankara", "Women's Traditional", "Women English Wear", "Kiddies"];
 const sortOptions = ["Featured", "Price: Low to High", "Price: High to Low"];
 
 const formatPrice = (price: number) => {

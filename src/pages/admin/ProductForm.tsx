@@ -18,10 +18,10 @@ import {
 } from "@/components/ui/select";
 
 const categories = [
-  "Men's Ankara",
   "Women's Ankara",
-  "Men's Traditional",
   "Women's Traditional",
+  "Women English Wear",
+  "Kiddies",
   "Accessories",
 ];
 
