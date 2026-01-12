@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import kiddiesAnkara from "@/assets/products/kiddies-ankara.jpg";
-import blazerCream from "@/assets/products/blazer-cream.jpg";
+import womensAnkara from "@/assets/products/womens-ankara.jpg";
 
 const collections = [
   {
@@ -17,7 +17,7 @@ const collections = [
     title: "Women's Collection",
     subtitle: "Effortless Grace",
     description: "Experience sophistication through our curated selection of women's couture.",
-    image: blazerCream,
+    image: womensAnkara,
     link: "/collections?category=womens",
   },
 ];
