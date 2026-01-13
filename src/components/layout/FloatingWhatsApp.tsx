@@ -4,7 +4,7 @@ const WHATSAPP_NUMBER = "2349027856578";
 
 export function FloatingWhatsApp() {
   const handleClick = () => {
-    const message = encodeURIComponent("Hello! I'm interested in your cloth line");
+    const message = encodeURIComponent("Hello! I'm interested in your clothing line");
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
   };
 
