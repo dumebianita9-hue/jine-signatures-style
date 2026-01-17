@@ -17,8 +17,8 @@ const collections = [
 ];
 
 const socialLinks = [
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Facebook, href: "#", label: "Facebook" },
+  { icon: Instagram, href: "https://www.instagram.com/jine_signatures?igsh=MTBpbGtrOXpsOHhmeg==", label: "Instagram" },
+  { icon: Facebook, href: "https://www.facebook.com/share/16vdHePhgG/", label: "Facebook" },
   { icon: Twitter, href: "#", label: "Twitter" },
 ];
 
